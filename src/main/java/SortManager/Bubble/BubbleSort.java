@@ -15,6 +15,8 @@ public class BubbleSort {
                     toSort[j+1] = temp;//Make next position higher number
                     ++swaps;
                 }
+        for (int i = 0; i < toSort.length; ++i)
+            System.out.print(toSort[i]);
         System.out.println(swaps);
         return toSort;
     }

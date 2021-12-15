@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.logging.*;
 
-public class BubbleSortTests {
+import java.util.Random;
+
+public class BubbleSortTests{
 
     BubbleSort bubbleSort = new BubbleSort();
     int[] numbers = {5,7,3,2,1};
@@ -15,22 +17,56 @@ public class BubbleSortTests {
     Logger logger = Logger.getLogger("myLogger");
 
     @Test
-    public void SorterTest()
+    public void AssertEqualsTest()
     {
         Logger logger = Logger.getLogger("myLogger");
         try {
             Handler fileHandler = new FileHandler("src/test/java/SortManager/Bubble/BubbleLog.log", true);
             logger.addHandler(fileHandler);
-            System.setProperty("java.util.logging.SimpleFormatter.Format", "%4$s: %5s [%1$tcl%n]");
             fileHandler.setFormatter(new SimpleFormatter());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.log(Level.INFO, "Bubble Sort Assertion Test");
-//        for (int i : orderedNumbers)
-//            logger.log(Level.INFO, String.valueOf(orderedNumbers[i-1]));
+        logger.log(Level.INFO, "Bubble Sort Assertion Test: " + arrToString(numbers));
         Assertions.assertArrayEquals(orderedNumbers, bubbleSort.sort(numbers));
-        logger.log(Level.INFO, "Success!");
+        logger.log(Level.INFO, "Success!!! \n Post Sort: " + arrToString(bubbleSort.sort(numbers)));
     }
 
+    @Test
+    public void RandTest()
+    {
+        //Generate Random Array
+        int[] arr = new int[GenerateNumber()];
+        FillArray(arr);
+
+        Logger logger = Logger.getLogger("myLogger");
+        try {
+            Handler fileHandler = new FileHandler("src/test/java/SortManager/Bubble/BubbleLog.log", true);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(new SimpleFormatter());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logger.log(Level.INFO, "Bubble Sort Random Test - Numbers In: " + arrToString(arr));
+        logger.log(Level.WARNING, "Post Sort: " + arrToString(bubbleSort.sort(arr)));
+    }
+
+    int GenerateNumber() {
+        Random random = new Random();
+        return random.nextInt( 50);
+    }
+
+    void FillArray(int[] arr) {
+        for(int i = 0; i < arr.length; ++i)
+            arr[i] = GenerateNumber();
+    }
+
+    String arrToString(int[] arr)
+    {
+        String nums = "";
+        for (int i = 0; i < arr.length; ++i)
+            nums += String.valueOf(arr[i]) + ",";
+        return nums;
+    }
 }
