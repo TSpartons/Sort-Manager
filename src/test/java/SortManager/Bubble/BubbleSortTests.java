@@ -1,25 +1,23 @@
 package SortManager.Bubble;
 
+import SortManager.SortManager;
+import SortManager.TestingFunctions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.logging.*;
 
-import java.util.Random;
-
 public class BubbleSortTests{
 
     BubbleSort bubbleSort = new BubbleSort();
-    int[] numbers = {5,7,3,2,1};
-    int[] orderedNumbers = {1,2,3,5,7};
+    int[] numbers = {5,7,35,2,1};
+    int[] orderedNumbers = {1,2,35,5,7};
+    TestingFunctions testParent= new TestingFunctions();
 
     Logger logger = Logger.getLogger("myLogger");
 
-    @Test
-    public void AssertEqualsTest()
-    {
-        Logger logger = Logger.getLogger("myLogger");
+    public BubbleSortTests(){
         try {
             Handler fileHandler = new FileHandler("src/test/java/SortManager/Bubble/BubbleLog.log", true);
             logger.addHandler(fileHandler);
@@ -27,46 +25,25 @@ public class BubbleSortTests{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.log(Level.INFO, "Bubble Sort Assertion Test: " + arrToString(numbers));
-        Assertions.assertArrayEquals(orderedNumbers, bubbleSort.sort(numbers));
-        logger.log(Level.INFO, "Success!!! \n Post Sort: " + arrToString(bubbleSort.sort(numbers)));
+    }
+
+    @Test
+    public void AssertEqualsTest()
+    {
+        logger.log(Level.INFO, "Numbers in: " + testParent.arrToString(numbers));
+        Assertions.assertArrayEquals(orderedNumbers,  (numbers));
+        logger.log(Level.INFO, "Success!!!");
     }
 
     @Test
     public void RandTest()
     {
         //Generate Random Array
-        int[] arr = new int[GenerateNumber()];
-        FillArray(arr);
+        int[] arr = new int[testParent.GenerateNumber()];
+        testParent.FillArray(arr);
 
-        Logger logger = Logger.getLogger("myLogger");
-        try {
-            Handler fileHandler = new FileHandler("src/test/java/SortManager/Bubble/BubbleLog.log", true);
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(new SimpleFormatter());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        logger.log(Level.INFO, "Bubble Sort Random Test - Numbers In: " + arrToString(arr));
-        logger.log(Level.WARNING, "Post Sort: " + arrToString(bubbleSort.sort(arr)));
+        logger.log(Level.INFO, "Bubble Sort Random Test - Numbers In: " + testParent.arrToString(arr));
+        logger.log(Level.WARNING, "Post Sort: " + testParent.arrToString(bubbleSort.Sort(arr)));
     }
 
-    int GenerateNumber() {
-        Random random = new Random();
-        return random.nextInt( 50);
-    }
-
-    void FillArray(int[] arr) {
-        for(int i = 0; i < arr.length; ++i)
-            arr[i] = GenerateNumber();
-    }
-
-    String arrToString(int[] arr)
-    {
-        String nums = "";
-        for (int i = 0; i < arr.length; ++i)
-            nums += String.valueOf(arr[i]) + ",";
-        return nums;
-    }
 }

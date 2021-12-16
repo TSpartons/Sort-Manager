@@ -1,8 +1,10 @@
+package SortManager;
+
 import java.util.Random;
 
-public class TestParent{
+public class TestingFunctions {
 
-    String arrToString(int[] arr)
+    public String arrToString(int[] arr)
     {
         String nums = "";
         for (int i = 0; i < arr.length; ++i)
@@ -10,12 +12,12 @@ public class TestParent{
         return nums;
     }
 
-    int GenerateNumber() {
+    public int GenerateNumber() {
         Random random = new Random();
         return random.nextInt( 50);
     }
 
-    void FillArray(int[] arr) {
+    public void FillArray(int[] arr) {
         for(int i = 0; i < arr.length; ++i)
             arr[i] = GenerateNumber();
     }

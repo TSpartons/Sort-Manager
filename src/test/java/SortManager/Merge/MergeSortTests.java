@@ -1,6 +1,6 @@
 package SortManager.Merge;
 
-import SortManager.Bubble.BubbleSort;
+import SortManager.TestingFunctions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +10,13 @@ import java.util.logging.*;
 public class MergeSortTests {
 
     MergeSort mergeSort = new MergeSort();
-    int[] numbers = {5,7,3,2,1};
-    int[] orderedNumbers = {1,2,3,5,7};
+    int[] numbers = {5,7,3,27,1};
+    int[] orderedNumbers = {1,27,3,5,7};
+    TestingFunctions testingFunctions = new TestingFunctions();
 
     Logger logger = Logger.getLogger("myLogger");
 
-    @Test
-    public void SorterTest()
-    {
-        Logger logger = Logger.getLogger("myLogger");
+    public MergeSortTests(){
         try {
             Handler fileHandler = new FileHandler("src/test/java/SortManager/Merge/MergeLog.log", true);
             logger.addHandler(fileHandler);
@@ -27,10 +25,25 @@ public class MergeSortTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.log(Level.INFO, "Merge Sort Assertion Test");
+    }
 
-       // Assertions.assertArrayEquals(orderedNumbers, mergeSort.sort(numbers,0,numbers.length));
+    @Test
+    public void AssertEqualsTest()
+    {
+        logger.log(Level.INFO, "Merge Sort Assertion Test: " + testingFunctions.arrToString(numbers));
+       Assertions.assertArrayEquals(orderedNumbers, mergeSort.Sort(numbers));
         logger.log(Level.INFO, "Success!");
+    }
+
+    @Test
+    public void RandTest()
+    {
+        //Generate Random Array
+        int[] arr = new int[testingFunctions.GenerateNumber()];
+        testingFunctions.FillArray(arr);
+
+        logger.log(Level.INFO, "Bubble Sort Random Test - Numbers In: " + testingFunctions.arrToString(arr));
+        logger.log(Level.WARNING, "Post Sort: " + testingFunctions.arrToString(mergeSort.Sort(arr)));
     }
 
 }

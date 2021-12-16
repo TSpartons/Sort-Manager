@@ -1,8 +1,11 @@
 package SortManager.Bubble;
 
-public class BubbleSort {
+import SortManager.SortManager;
+import SortManager.Sorter;
 
-    public int[] sort(int[] toSort)
+public class BubbleSort implements Sorter {
+
+    public int[] Sort(int[] toSort)
     {
         int swaps = 0;
 
