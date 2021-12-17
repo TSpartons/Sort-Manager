@@ -1,9 +1,25 @@
-package SortManager.Bubble;
+package Model.Bubble;
 
-public class BubbleSort {
+import Model.Sorter;
 
-    public int[] sort(int[] toSort)
+public class BubbleSort implements Sorter {
+
+    private long speed;
+    private long start;
+    private long end;
+
+    @Override
+    public long getSpeed() {
+        return speed;
+    }
+
+    private void setSpeed() {
+        speed = end - start;
+    }
+
+    public int[] Sort(int[] toSort)
     {
+        start = System.nanoTime();
         int swaps = 0;
 
         for (int i = 0; i < toSort.length-1; ++i) //For all numbers
@@ -13,9 +29,11 @@ public class BubbleSort {
                     int temp = toSort[j]; //Store this number
                     toSort[j] = toSort[j+1]; //Make current position the lower number
                     toSort[j+1] = temp;//Make next position higher number
-                    ++swaps;
+                    //++swaps;
                 }
-        System.out.println(swaps);
+        //System.out.println(swaps); //put in log
+        end = System.nanoTime();
+        setSpeed();
         return toSort;
     }
 }
