@@ -1,11 +1,52 @@
-package SortManager.Merge;
+package Model.Merge;
 
-import SortManager.Sorter;
+import Model.Sorter;
 
 public class MergeSort implements Sorter {
 
+    private long speed;
+    private long start;
+    private long end;
+
+    @Override
+    public long getSpeed() {
+        return speed;
+    }
+
+    private void setSpeed() {
+        speed = end - start;
+    }
+
+    @Override
+    public int[] Sort(int[] array) {
+        start = System.nanoTime();
+        array = Breakdown(array, 0, array.length-1);
+        end = System.nanoTime();
+        setSpeed();
+
+        return array;
+    }
+
+    //Splits the array up and uses the compare function
+    public int[] Breakdown(int[] array, int start, int end){
+
+        if(start == end)
+            return null; //run the next line of code in the else statement
+        else
+        {
+            int mid = start + (end - start)/2;
+           // System.out.print(mid); //quick debug;
+            Breakdown(array,start,mid);
+            //System.out.print(mid); // quick debug
+            Breakdown(array,mid+1,end);
+            Compare(array,start,end,mid);
+        }
+
+        return array;
+    }
+
     //Creates temp arrays and compares them to put them in ascending order
-    void Compare(int[] arr, int start, int end, int mid)
+    private void Compare(int[] arr, int start, int end, int mid)
     {
         int[] left = new int[mid - start + 1];
         int[] right = new int[end - mid];
@@ -33,7 +74,7 @@ public class MergeSort implements Sorter {
                 arr[indexMain] = right[indexRight];
                 ++indexRight;
             }
-                ++indexMain;
+            ++indexMain;
         }
 
         while (indexLeft < left.length) {
@@ -48,29 +89,6 @@ public class MergeSort implements Sorter {
             ++indexRight;
         }
 
-    }
-
-    @Override
-    public int[] Sort(int[] array) {
-        return Breakdown(array, 0, array.length-1);
-    }
-
-    //Splits the array up and uses the compare function
-    public int[] Breakdown(int[] array, int start, int end){
-
-        if(start == end)
-            return null; //run the next line of code in the else statement
-        else
-        {
-            int mid = start + (end - start)/2;
-           // System.out.print(mid); //quick debug;
-            Breakdown(array,start,mid);
-            //System.out.print(mid); // quick debug
-            Breakdown(array,mid+1,end);
-            Compare(array,start,end,mid);
-        }
-
-        return array;
     }
 
 }

@@ -1,7 +1,6 @@
-package SortManager.Tree;
+package Model.Tree;
 
-import SortManager.Merge.MergeSort;
-import SortManager.TestingFunctions;
+import Model.TestingFunctions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +14,12 @@ public class TreeSortTests {
     int[] orderedNumbers = {1,2,3,5,7};
     TestingFunctions testingFunctions = new TestingFunctions();
 
-    Logger logger = Logger.getLogger("myLogger");
+    Logger logger = Logger.getLogger("Controller.myLogger");
 
     public TreeSortTests() {
 
         try {
-            Handler fileHandler = new FileHandler("src/test/java/SortManager/Tree/TreeLog.log", true);
+            Handler fileHandler = new FileHandler("src/test/java/Model/Tree/TreeLog.log", true);
             logger.addHandler(fileHandler);
             System.setProperty("java.util.logging.SimpleFormatter.Format", "%4$s: %5s [%1$tcl%n]");
             fileHandler.setFormatter(new SimpleFormatter());
@@ -41,7 +40,7 @@ public class TreeSortTests {
     public void RandTest()
     {
         //Generate Random Array
-        int[] arr = new int[testingFunctions.GenerateNumber()];
+        int[] arr = new int[testingFunctions.GenerateNumberArr()];
         testingFunctions.FillArray(arr);
 
         logger.log(Level.INFO, "Tree Sort Random Test - Numbers In: " + testingFunctions.arrToString(arr));
